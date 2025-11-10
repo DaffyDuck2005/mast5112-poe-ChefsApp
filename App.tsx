@@ -18,11 +18,41 @@ function MenuScreen({ navigation }: { navigation: any }) {
   const [showDescriptionOverlay, setShowDescriptionOverlay] = useState(false);
   const [selectedItemDescription, setSelectedItemDescription] = useState<string | null>(null);
 
+  const calculateAveragePrice = (course: string) => {
+    const courseItems = items.filter(item => item.course === course);
+    if (courseItems.length === 0) return "R0";
+    
+    const total = courseItems.reduce((sum, item) => {
+      const price = parseFloat(item.price.replace('R', ''));
+      return sum + price;
+    }, 0);
+    
+    return `R${(total / courseItems.length).toFixed(2)}`;
+  };
+
+  const starterAvg = calculateAveragePrice('Starters');
+  const mainAvg = calculateAveragePrice('Mains');
+  const dessertAvg = calculateAveragePrice('Desserts');
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.title}>Menu</Text>
         <View style={styles.divider} />
+        <View style={styles.categoryPriceContainer}>
+          <View style={styles.categoryPriceRow}>
+            <Text style={styles.categoryText}>Starter</Text>
+            <Text style={styles.categoryPrice}>{starterAvg}</Text>
+          </View>
+          <View style={styles.categoryPriceRow}>
+            <Text style={styles.categoryText}>Main</Text>
+            <Text style={styles.categoryPrice}>{mainAvg}</Text>
+          </View>
+          <View style={styles.categoryPriceRow}>
+            <Text style={styles.categoryText}>Dessert</Text>
+            <Text style={styles.categoryPrice}>{dessertAvg}</Text>
+          </View>
+        </View>
         <Text style={styles.itemCount}>{items.length} Items</Text>
       </View>
 
@@ -110,9 +140,13 @@ export default function App() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'green' },
   topContainer: { alignItems: 'center', paddingTop: 30 },
-  title: { fontSize: 28, color: '#fff', textAlign: 'center', marginBottom: 10 },
+  title: { fontSize: 28, color: '#fff', textAlign: 'center', marginBottom: 25 },
+  categoryPriceContainer: { width: '100%', paddingHorizontal: 40, marginBottom: 15 },
+  categoryPriceRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
+  categoryText: { color: '#fff', fontSize: 18 },
+  categoryPrice: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
   itemCount: { color: '#fff', fontSize: 16, marginTop: 10 },
-  scrollContainer: { flex: 1, paddingHorizontal: 20 },
+  scrollContainer: { flex: 0.85, paddingHorizontal: 20, paddingTop: 12 },
   menuItemContainer: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: 'rgba(255,255,255,0.2)' },
   menuItemText: { color: '#fff', fontSize: 18 },
   menuItemPrice: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
