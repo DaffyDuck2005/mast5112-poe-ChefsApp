@@ -3,11 +3,15 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { MenuContext, MenuItem } from './MenuContext';
 
 export default function Mains({ navigation }: { navigation: any }) {
+  // Get menu items from context and filter to show only main courses
   const { items } = useContext(MenuContext);
   const mains = items.filter((i) => i.course === 'Mains');
+
+  // State for managing the description overlay
   const [showDescriptionOverlay, setShowDescriptionOverlay] = useState(false);
   const [selectedItemDescription, setSelectedItemDescription] = useState<string | null>(null);
 
+  // Toggle description overlay when an item is tapped
   const handleItemTap = (item: MenuItem) => {
     if (showDescriptionOverlay && selectedItemDescription === item.description) {
       setShowDescriptionOverlay(false);
@@ -24,10 +28,15 @@ export default function Mains({ navigation }: { navigation: any }) {
         <Text style={styles.title}>Mains</Text>
         <View style={styles.divider} />
       </View>
+      {/* Scrollable list of main course items */}
       <View style={styles.scrollContainer}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
+          {/* List of main course items */}
           {mains.map((item, index) => (
-            <Pressable key={index} onPress={() => handleItemTap(item)}>
+            <Pressable 
+              key={index} 
+              onPress={() => handleItemTap(item)}
+            >
               <View style={styles.menuItemContainer}>
                 <Text style={styles.menuItemText}>{item.name}</Text>
                 <Text style={styles.menuItemPrice}>{item.price}</Text>
@@ -64,6 +73,7 @@ export default function Mains({ navigation }: { navigation: any }) {
   );
 }
 
+// Styles for the Mains screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,

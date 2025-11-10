@@ -1,13 +1,27 @@
+// AddItem.tsx
+// Screen: AddItem
+// Purpose: shows a form for creating a new menu item and adding it to the global MenuContext.
+// Sections:
+//  - Dish Name input
+//  - Description textarea
+//  - Course selector (Starters/Mains/Desserts)
+//  - Price input
+//  - Bottom action buttons (Add / Clear / Cancel / Remove)
 import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, Pressable, TextInput, ScrollView, Alert } from 'react-native';
 import { MenuContext, MenuItem } from './MenuContext';
 
 const AddItem = ({ navigation }: { navigation: any }) => {
+  // Access addItem from MenuContext to update the shared menu list
   const { addItem } = useContext(MenuContext);
+
+  // Form state: name, description, price and selected course
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [course, setCourse] = useState<'Starters' | 'Mains' | 'Desserts' | null>(null);
+
+  // Local UI state for showing the course dropdown
   const [showCourseOptions, setShowCourseOptions] = useState(false);
   const courses = ["Starters", "Mains", "Desserts"] as const;
 
@@ -19,6 +33,7 @@ const AddItem = ({ navigation }: { navigation: any }) => {
           <View style={styles.divider} />
         </View>
         <View style={styles.formContainer}>
+          {/* Dish Name field */}
           <Text style={styles.label}>Dish Name</Text>
           <TextInput 
             style={styles.input}
@@ -27,6 +42,7 @@ const AddItem = ({ navigation }: { navigation: any }) => {
             placeholder="Enter dish name"
           />
 
+          {/* Description textarea for the dish */}
           <Text style={styles.label}>Description</Text>
           <TextInput 
             style={[styles.input, styles.descriptionInput]}
@@ -36,6 +52,7 @@ const AddItem = ({ navigation }: { navigation: any }) => {
             multiline
           />
 
+          {/* Course selector - opens a small dropdown with course options */}
           <Text style={styles.label}>Select Course</Text>
           <View>
             <Pressable style={styles.input} onPress={() => setShowCourseOptions(!showCourseOptions)}>
@@ -56,6 +73,7 @@ const AddItem = ({ navigation }: { navigation: any }) => {
             )}
           </View>
           
+          {/* Price input - numeric keyboard */}
           <Text style={styles.label}>Price</Text>
           <TextInput 
             style={styles.input}
@@ -92,6 +110,7 @@ const AddItem = ({ navigation }: { navigation: any }) => {
           >
             <Text style={styles.buttonText}>Add</Text>
           </Pressable>
+          {/* Clear button: reset the form fields */}
           <Pressable style={styles.button} onPress={() => {
             setName('');
             setDescription('');
@@ -100,9 +119,13 @@ const AddItem = ({ navigation }: { navigation: any }) => {
           }}>
             <Text style={styles.buttonText}>Clear</Text>
           </Pressable>
+
+          {/* Cancel button: go back to previous screen without saving */}
           <Pressable style={styles.button} onPress={() => navigation.goBack()}>
             <Text style={styles.buttonText}>Cancel</Text>
           </Pressable>
+
+          {/* Remove shortcut: navigate to RemoveItem screen */}
           <Pressable style={styles.button} onPress={() => navigation.navigate('RemoveItem')}>
             <Text style={styles.buttonText}>Remove</Text>
           </Pressable>
@@ -111,6 +134,8 @@ const AddItem = ({ navigation }: { navigation: any }) => {
     </View>
   );
 };
+
+// Styles for the AddItem screen. Keep them small and focused on layout.
 
 const styles = StyleSheet.create({
   container: {

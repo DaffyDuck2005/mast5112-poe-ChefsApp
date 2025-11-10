@@ -1,14 +1,27 @@
+// Starter.tsx
+// Screen: Starter
+// Purpose: Displays all starter menu items
+// Features:
+//  - Filters and shows only starter items
+//  - Interactive item descriptions on tap
+//  - Shows name and price for each item
+//  - Uses same overlay pattern as main menu
+
 import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView} from 'react-native';
 import { useContext } from 'react';
 import { MenuContext, MenuItem } from './MenuContext';
 
 export default function Starter({ navigation }: { navigation: any }) {
+  // Get menu items from context and filter to show only starters
   const { items } = useContext(MenuContext);
   const starters = items.filter((i) => i.course === 'Starters');
+
+  // State for managing the description overlay
   const [showDescriptionOverlay, setShowDescriptionOverlay] = useState(false);
   const [selectedItemDescription, setSelectedItemDescription] = useState<string | null>(null);
 
+  // Toggle description overlay when an item is tapped
   const handleItemTap = (item: MenuItem) => {
     if (showDescriptionOverlay && selectedItemDescription === item.description) {
       setShowDescriptionOverlay(false);

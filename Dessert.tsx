@@ -1,13 +1,26 @@
+// Dessert.tsx
+// Screen: Dessert
+// Purpose: Displays all dessert menu items
+// Features:
+//  - Filters and shows only dessert items
+//  - Interactive item descriptions on tap
+//  - Shows name and price for each item
+//  - Uses same overlay pattern as menu screen
+
 import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { MenuContext, MenuItem } from './MenuContext';
 
 export default function Dessert({ navigation }: { navigation: any }) {
+  // Get menu items from context and filter to show only desserts
   const { items } = useContext(MenuContext);
   const desserts = items.filter((i) => i.course === 'Desserts');
+
+  // State for managing the description overlay
   const [showDescriptionOverlay, setShowDescriptionOverlay] = useState(false);
   const [selectedItemDescription, setSelectedItemDescription] = useState<string | null>(null);
 
+  // Toggle description overlay when an item is tapped
   const handleItemTap = (item: MenuItem) => {
     if (showDescriptionOverlay && selectedItemDescription === item.description) {
       setShowDescriptionOverlay(false);
@@ -20,10 +33,13 @@ export default function Dessert({ navigation }: { navigation: any }) {
 
   return (
     <View style={styles.container}>
+      {/* Title section */}
       <View style={styles.topContainer}>
         <Text style={styles.title}>Desserts</Text>
         <View style={styles.divider} />
       </View>
+
+      {/* Scrollable content section */}
       <View style={styles.scrollContainer}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {desserts.map((item, index) => (
@@ -64,6 +80,7 @@ export default function Dessert({ navigation }: { navigation: any }) {
   );
 }
 
+// Styles for the Dessert screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,

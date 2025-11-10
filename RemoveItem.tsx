@@ -1,10 +1,21 @@
+// RemoveItem.tsx
+// Screen: RemoveItem
+// Purpose: Allows users to remove items from the menu
+// Features:
+//  - Lists all menu items with remove buttons
+//  - Shows confirmation dialog before removal
+//  - Updates MenuContext when items are removed
+//  - Displays item name and truncated description
+
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView, Alert } from 'react-native';
 import { MenuContext, MenuItem } from './MenuContext';
 
 export default function RemoveItem({ navigation }: { navigation: any }) {
+  // Access menu items and remove function from context
   const { items, removeItem } = useContext(MenuContext);
 
+  // Show confirmation dialog before removing an item
   const confirmRemove = (index: number, name: string) => {
     Alert.alert(
       'Remove Item',
@@ -15,7 +26,7 @@ export default function RemoveItem({ navigation }: { navigation: any }) {
           text: 'Remove',
           style: 'destructive',
           onPress: () => {
-            removeItem(index);
+            removeItem(index); // Remove the item if confirmed
           },
         },
       ]

@@ -1,3 +1,11 @@
+// Filter.tsx
+// Screen: Filter
+// Purpose: Provides navigation to course-specific menu views
+// Features:
+//  - Quick access buttons to Starters/Mains/Desserts
+//  - Consistent button styling with other screens
+//  - Back navigation to main menu
+
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 
@@ -9,9 +17,10 @@ export default function Filter({ navigation }: { navigation: any }) {
 				<View style={styles.divider} />
 			</View>
 
-			{/* This is where your filter options/controls will go */}
+						{/* Main content area with course filter buttons */}
 			<View style={styles.mainContentArea}>
 				<View style={styles.filterButtonsContainer}>
+					{/* Navigation buttons for each course type */}
 					<Pressable style={styles.filterButton} onPress={() => navigation.navigate('Starters')}>
 						<Text style={styles.filterButtonText}>Starters</Text>
 					</Pressable>

@@ -9,10 +9,11 @@ export type MenuItem = {
 };
 
 type MenuContextType = {
-  items: MenuItem[];
-  addItem: (item: MenuItem) => void;
-  removeItem: (index: number) => void;
+  items: MenuItem[];            // Array of all menu items
+  addItem: (item: MenuItem) => void;     // Function to add a new item
+  removeItem: (index: number) => void;    // Function to remove an item by index
 };
+
 
 export const MenuContext = createContext<MenuContextType>({
   items: [],
@@ -20,12 +21,18 @@ export const MenuContext = createContext<MenuContextType>({
   removeItem: () => {},
 });
 
+// Provider component that wraps the app and provides menu state
 export const MenuProvider = ({ children }: { children: ReactNode }) => {
+  // Initialize menu items with data from menuData.ts
   const [items, setItems] = useState<MenuItem[]>(initialMenuItems);
 
+  // Add new item to the start of the list
   const addItem = (item: MenuItem) => setItems((s) => [item, ...s]);
+  
+  // Remove item at the specified index
   const removeItem = (index: number) => setItems((s) => s.filter((_, i) => i !== index));
 
+  // Provide state and functions to all child components
   return <MenuContext.Provider value={{ items, addItem, removeItem }}>{children}</MenuContext.Provider>;
 };
 

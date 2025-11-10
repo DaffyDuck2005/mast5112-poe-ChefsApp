@@ -1,3 +1,6 @@
+// App.tsx - Main app entry
+// Sets up navigation, wraps screens with MenuContext, and defines the Menu screen UI/interactions.
+// The Menu screen renders quick category averages, a scrollable list of items, and action buttons.
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View, Pressable, ScrollView } from 'react-native';
@@ -13,6 +16,11 @@ import { MenuContext, MenuProvider } from './MenuContext';
 
 const Stack = createStackNavigator();
 
+// MenuScreen component
+// - Displays the Menu title and category average prices
+// - Scrollable listing of menu items (Pressable rows)
+// - Tapping an item opens a constrained description overlay
+// - Bottom buttons navigate to Filter and Add Item screens
 function MenuScreen({ navigation }: { navigation: any }) {
   const { items } = useContext(MenuContext);
   const [showDescriptionOverlay, setShowDescriptionOverlay] = useState(false);
@@ -56,7 +64,8 @@ function MenuScreen({ navigation }: { navigation: any }) {
         <Text style={styles.itemCount}>{items.length} Items</Text>
       </View>
 
-      <ScrollView style={styles.scrollContainer} contentContainerStyle={{ paddingBottom: 160 }}>
+  {/* ScrollView to create a listing of menu items. Each item is pressable to view details. */}
+  <ScrollView style={styles.scrollContainer} contentContainerStyle={{ paddingBottom: 160 }}>
         {items.map((item, index) => (
           <Pressable
             key={index}
@@ -80,7 +89,8 @@ function MenuScreen({ navigation }: { navigation: any }) {
         ))}
       </ScrollView>
 
-      {showDescriptionOverlay && (
+  {/* Description overlay: appears between the dividers and shows full description for selected item */}
+  {showDescriptionOverlay && (
         <Pressable
           style={styles.fullDescriptionOverlay}
           onPress={() => {
@@ -94,7 +104,8 @@ function MenuScreen({ navigation }: { navigation: any }) {
         </Pressable>
       )}
 
-      <View style={styles.bottomContainer}>
+  {/* Bottom action area: divider and action buttons (Filter, Add Item) */}
+  <View style={styles.bottomContainer}>
         <View style={styles.divider} />
         <View style={styles.buttonWrapper}>
           <Pressable style={styles.button} onPress={() => navigation.navigate('Filter')}>
