@@ -8,6 +8,7 @@ import StarterScreen from './Starter';
 import MainsScreen from './Mains';
 import DessertScreen from './Dessert';
 import AddItem from './AddItem';
+import RemoveItem from './RemoveItem';
 import { MenuContext, MenuProvider } from './MenuContext';
 
 const Stack = createStackNavigator();
@@ -95,6 +96,7 @@ export default function App() {
           <Stack.Screen name="Menu" component={MenuScreen} options={{ title: '' }} />
           <Stack.Screen name="AddItem" component={AddItem} options={{ title: '' }} />
           <Stack.Screen name="Filter" component={FilterScreen} options={{ title: '' }} />
+          <Stack.Screen name="RemoveItem" component={RemoveItem} options={{ title: '' }} />
           <Stack.Screen name="Starters" component={StarterScreen} options={{ title: '' }} />
           <Stack.Screen name="Mains" component={MainsScreen} options={{ title: '' }} />
           <Stack.Screen name="Desserts" component={DessertScreen} options={{ title: '' }} />

@@ -103,6 +103,9 @@ const AddItem = ({ navigation }: { navigation: any }) => {
           <Pressable style={styles.button} onPress={() => navigation.goBack()}>
             <Text style={styles.buttonText}>Cancel</Text>
           </Pressable>
+          <Pressable style={styles.button} onPress={() => navigation.navigate('RemoveItem')}>
+            <Text style={styles.buttonText}>Remove</Text>
+          </Pressable>
         </View>
       </View>
     </View>
